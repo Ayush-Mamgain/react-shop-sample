@@ -179,7 +179,7 @@ body {
 }
 
 .cart {
-  border: var(--primary-border);
+  /* border: var(--primary-border); */
   width: calc(var(--primary-width) - 10vw);
   min-width: 300px;
   background-color: white;
@@ -191,7 +191,7 @@ body {
 }
 
 .cart-items {
-  border: var(--primary-border);
+  /* border: var(--primary-border); */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -201,7 +201,7 @@ body {
 }
 
 .cart-item {
-  border: var(--primary-border);
+  /* border: var(--primary-border); */
   display: flex;
   flex-wrap: wrap;
   padding: 20px 10px;
