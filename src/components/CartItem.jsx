@@ -1,23 +1,21 @@
 import { useDispatch } from "react-redux";
-import { removeItem } from "../redux/slices/cartSlice";
+import { increment, decrement, removeItem } from "../redux/slices/cartSlice";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
-export default function CartItem({ item }) {
+export default function CartItem({ item, totalPrice }) {
     const dispatch = useDispatch();
-    const [itemCount, setItemCount] = useState(1);
-    const [itemTotalPrice, setItemTotalPrice] = useState(item.price);
+    const cart = useSelector(state => state.cart);
+    let prodCount = cart.find(prod => prod.item.id === item.id).count;
 
-    function countHandler(increment) {
-        if(increment) {
-            setItemCount(prevCount => prevCount+1);
-            setItemTotalPrice(prevPrice => prevPrice + item.price);
+    function countHandler(increase) {
+        if(increase) {
+            dispatch(increment(item.id));
         }
         else {
-            if(itemCount !== 1) {
-                setItemCount(prevCount => prevCount - 1);
-                setItemTotalPrice(prevPrice => prevPrice - item.price);
-            }
+            if(prodCount > 1)
+                dispatch(decrement(item.id));
         }
     }
 
@@ -31,13 +29,15 @@ export default function CartItem({ item }) {
                 <p className="cart-item-description">{item.description}</p>
                 <div className="cart-item-footer">
                     <span className="cart-item-price">${item.price}</span>
-                    <button className="item-count-btn" onClick={() => countHandler(false)}>
-                        -
-                    </button>
-                    <span>{itemTotalPrice.toFixed(2)}</span>
-                    <button className="item-count-btn" onClick={() => countHandler(true)}>
-                        +
-                    </button>
+                    <div className="change-count">
+                        <button className="item-count-btn" onClick={() => countHandler(false)}>
+                            -
+                        </button>
+                        <span>{prodCount}</span>
+                        <button className="item-count-btn" onClick={() => countHandler(true)}>
+                            +
+                        </button>
+                    </div>
                     <FaTrash className="cart-remove-btn" onClick={() => dispatch(removeItem(item.id))} />
                 </div>
             </div>

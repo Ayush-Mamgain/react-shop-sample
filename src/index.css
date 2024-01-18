@@ -248,6 +248,29 @@ body {
   align-items: center;
 }
 
+.change-count {
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+
+.change-count button {
+  padding: 2px 10px;
+  background-color: rgb(231, 231, 231);
+  transition: all 0.5s ease;
+  border-radius: 100px;
+}
+
+.change-count button:hover {
+  transform: translateY(-5px);
+}
+
+.change-count span {
+  font-size: 1.5rem;
+}
+
 .cart-item-price {
   color: green;
   font-weight: bold;

@@ -8,7 +8,10 @@ export default function Product({ product }) {
     // const [selected, setSelected] = useState(false); --> on re-rendering it again becomes false; we need to figure out a way to use it inside useEffect so it only occurs in first render!
 
     function add() {
-        dispatch(addToCart(product));
+        dispatch(addToCart({
+            item: product,
+            count: 1,
+        }));
         // setSelected(true);
         toast.success("Item added");
     }
@@ -22,7 +25,7 @@ export default function Product({ product }) {
     return (
         <div className="product" onClick = { 
                 () => {
-                    cart.some( (item) => item.id ===  product.id) ? remove() : add()
+                    cart.some( (prod) => prod.item.id ===  product.id) ? remove() : add()
                 } 
         }>
             <div className="product-description">
@@ -35,7 +38,7 @@ export default function Product({ product }) {
             <div className="price-cart">
                 <span className="price">${product.price}</span>
                 {
-                    cart.some( (item) => item.id ===  product.id) ?
+                    cart.some( (prod) => prod.item.id ===  product.id) ?
                     (
                         <button className="cart-btn">
                             remove item

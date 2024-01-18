@@ -4,10 +4,9 @@ import { NavLink } from "react-router-dom";
 
 export default function Cart() {
     const cart = useSelector(state => state.cart);
-    console.log(cart);
 
     function totalPrice() {
-        return cart.reduce( (ac, curr) => ac + curr.price, 0);
+        return cart.reduce( (ac, curr) => ac + curr.item.price*curr.count, 0).toFixed(3);
     }
 
     return (
@@ -16,7 +15,7 @@ export default function Cart() {
             <div className="cart">
                 <div className="cart-items">
                     {
-                        cart.map( (item) => <CartItem key={item.id} item={item} />)
+                        cart.map( (prod) => <CartItem key={prod.item.id} item={prod.item} totalPrice={totalPrice}/>)
                     }
                 </div>
                 <div className="cart-summary">
